@@ -1,15 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup"
-
-const signUpSchema = yup.object({
-  name: yup.string().min(3, "Name must be at least 3 characters").required("Whoops! Looks like Name is Required."),
-  email: yup.string().email("Whoops! Looks like the e-mail is Invalid.").required("Whoops! Looks like the e-mail is Required."),
-  password: yup.string().required("Whoops! Looks like the Password is Required."),
-});
-
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 const SignUp = () => {
+
+  const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState();
+
+  const handleSignUp = async(payload) => {
+  const loadingToast = toast.loading("Signup in Progress...")
+    try {
+      loadingToast;
+      const response = await axios.post("http://localhost:8080/api/v1/user/register", payload);
+      if(response.status === 201){
+        toast.dismiss(loadingToast);
+        navigate("/signin");
+        toast.success(`${response.data.message}`)
+        setError("");
+        return; 
+      }
+    } catch (error) {
+      console.log(error);
+      toast.dismiss(loadingToast);
+      setErrorMsg(error.response.data.message);
+      toast.error("Username or email already exists")
+    }
+  };
 
   return (
     <section className='flex flex-col justify-center place-items-center h-screen'>
@@ -24,7 +43,7 @@ const SignUp = () => {
           email: yup.string().email().required(),
           password: yup.string().required(),
         })}
-        onSubmit={values => handleRegister(values)}>
+        onSubmit={values => handleSignUp(values)}>
         <Form>
           {
             <div>

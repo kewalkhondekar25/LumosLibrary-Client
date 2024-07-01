@@ -7,12 +7,13 @@ import Cart from './components/Cart'
 import Checkout from './components/Checkout'
 import SignUp from './components/SignUp'
 import SignIn from './components/SignIn'
-
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
   return (
     <Router>
+      <Toaster/>
       <Routes>
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/signin' element={<SignIn/>}/>
