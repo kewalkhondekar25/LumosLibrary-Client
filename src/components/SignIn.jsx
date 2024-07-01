@@ -16,13 +16,12 @@ const SignIn = () => {
     try {
       loadingToast;
       const response = await axios.post("http://localhost:8080/api/v1/user/login", payload);
-      console.log(response.data);
       if (response.status === 201) {
         toast.dismiss(loadingToast);
         toast.success("SignIn Success");
         setCookie("your-cookie", response.data.token);
-        // setCookie("first-id", response.data.data.username);
-        // setCookie("second-id", response.data.data.email);
+        setCookie("first-id", response.data.data.name);
+        setCookie("second-id", response.data.data.email);
         navigate("/");
         return
       }
