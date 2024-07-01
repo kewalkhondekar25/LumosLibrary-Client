@@ -2,7 +2,9 @@ import React from 'react'
 
 const Shop = () => {
   return (
-    <div>Shop</div>
+    <section className='h-screen'>
+      
+    </section>
   )
 }
 
