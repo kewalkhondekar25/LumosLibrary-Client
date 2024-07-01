@@ -5,12 +5,17 @@ import Shop from './components/Shop'
 import SelectedBook from './components/SelectedBook'
 import Cart from './components/Cart'
 import Checkout from './components/Checkout'
+import SignUp from './components/SignUp'
+import SignIn from './components/SignIn'
+
 
 function App() {
 
   return (
     <Router>
       <Routes>
+        <Route path='/signup' element={<SignUp/>}/>
+        <Route path='/signin' element={<SignIn/>}/>
         <Route path='/' element={<Home/>}/>
         <Route path='/shop' element={<Shop/>}/>
         <Route path="/book/:id" element={<SelectedBook/>}/>
