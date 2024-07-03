@@ -8,11 +8,14 @@ import Checkout from './components/Checkout'
 import SignUp from './components/SignUp'
 import SignIn from './components/SignIn'
 import { Toaster } from 'react-hot-toast'
+import Profile from './components/Profile'
+import Header from './components/Header'
 
 function App() {
 
   return (
     <Router>
+      <Header/>
       <Toaster/>
       <Routes>
         <Route path='/signup' element={<SignUp/>}/>
@@ -20,8 +23,9 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/shop' element={<Shop/>}/>
         <Route path="/book/:id" element={<SelectedBook/>}/>
-        <Route path='cart' element={<Cart/>}/>
+        <Route path='/cart' element={<Cart/>}/>
         <Route path='/checkout' element={<Checkout/>}/>
+        <Route path='/profile' element={<Profile/>}/>
       </Routes>
     </Router>
   )

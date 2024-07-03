@@ -1,42 +1,54 @@
-import axios from 'axios'
-import React, { useEffect } from 'react'
+import axios from 'axios';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAllBooks } from '../features/books/booksSlice';
+import { loadAllBooks, searchCartByName } from '../features/books/booksSlice';
 import useFetch from '../hooks/useFetch';
-import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-
-
 
 const Shop = () => {
 
   const dispatch = useDispatch();
-  const {books, qty} = useSelector(store => store.books);
+  const { books } = useSelector(store => store.books);
+  const { data } = useFetch("http://localhost:8080/api/v1/books");
 
-  const { data, isLoading, errorMessage } = useFetch("http://localhost:8080/api/v1/books");
-  
+  const handleSearch = (e) => {
+    dispatch(searchCartByName(e.target.value));
+  };
+
   useEffect(() => {
-    if(data){
+    if (data) {
       dispatch(loadAllBooks(data));
     }
-  }, [data]);
+  }, [data, dispatch]);
 
   return (
-    <section className='flex flex-wrap justify-center'>
-      {
-        data.map(item => {
-          return (
-            <Link to={`/book/${item._id}`} key={item._id}>
-              <div  className='flex  flex-col p-3 justify-center place-items-center' >
-                <img height={250} width={250} src={item.coverImage} alt={item.coverImage} />
-                <p className='font-bold'>{item.title}</p>
-              </div>
-            </Link>
-          )
-        })
-      }
-    </section>
-  )
-}
+    <section className="container mx-auto px-4 py-8">
 
-export default Shop
+      <div className="mb-5">
+        <input
+          type="text"
+          placeholder="Search Book or Author"
+          className="w-full p-2 text-white bg-[#353434] rounded"
+          onChange={handleSearch}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {books.map(item => (
+          <Link to={`/book/${item._id}`} key={item._id}>
+            <div className="flex flex-col items-center p-3">
+              <img
+                src={item.coverImage}
+                alt={item.title}
+                className="rounded-md"
+              />
+              <p className="mt-2 text-center text-lg font-semibold capitalize">{item.title}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default Shop;
