@@ -9,7 +9,7 @@ const Shop = () => {
 
   const dispatch = useDispatch();
   const { books } = useSelector(store => store.books);
-  const { data } = useFetch("http://localhost:8080/api/v1/books");
+  const { data } = useFetch("https://lumos-library-server.vercel.app/api/v1/books");
 
   const handleSearch = (e) => {
     dispatch(searchCartByName(e.target.value));
@@ -27,7 +27,7 @@ const Shop = () => {
       <div className="mb-5">
         <input
           type="text"
-          placeholder="Search Book or Author"
+          placeholder="Search Book by Name, Author or Genre"
           className="w-full p-2 text-white bg-[#353434] rounded"
           onChange={handleSearch}
         />

@@ -26,7 +26,7 @@ const Checkout = () => {
   const handleProcessOrder = async () => {
     try {
       const loadOrder = toast.loading("Order Processing");
-      const response = await axios.post("http://localhost:8080/api/v1/purchase", order, {
+      const response = await axios.post("https://lumos-library-server.vercel.app/api/v1/purchase", order, {
         headers: {
           Authorization: `${cookies["accessToken"]}`
         }

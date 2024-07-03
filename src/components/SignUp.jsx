@@ -14,12 +14,11 @@ const SignUp = () => {
   const loadingToast = toast.loading("Signup in Progress...")
     try {
       loadingToast;
-      const response = await axios.post("http://localhost:8080/api/v1/user/register", payload);
+      const response = await axios.post("https://lumos-library-server.vercel.app/api/v1/user/register", payload);
       if(response.status === 201){
         toast.dismiss(loadingToast);
         navigate("/signin");
         toast.success(`${response.data.message}`)
-        setError("");
         return; 
       }
     } catch (error) {

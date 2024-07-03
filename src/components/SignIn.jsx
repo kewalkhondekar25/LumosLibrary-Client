@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup"
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,14 +15,14 @@ const SignIn = () => {
     const loadingToast = toast.loading("Signing in progress...");
     try {
       loadingToast;
-      const response = await axios.post("http://localhost:8080/api/v1/user/login", payload);
+      const response = await axios.post("https://lumos-library-server.vercel.app/api/v1/user/login", payload);
       if (response.status === 201) {
         toast.dismiss(loadingToast);
         toast.success("SignIn Success");
         setCookie("accessToken", response.data.token);
         setCookie("first-id", response.data.data.name);
         setCookie("second-id", response.data.data.email);
-        navigate("/");
+        navigate("/shop");
         return
       }
     } catch (error) {
@@ -32,6 +32,9 @@ const SignIn = () => {
       toast.error("Invalid Credentials")
     }
   };
+  useEffect(() => {
+    console.log("Hello:)");
+  }, [])
   return (
     <section className='flex flex-col justify-center items-center h-screen'>
       <Formik

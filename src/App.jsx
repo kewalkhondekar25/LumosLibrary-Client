@@ -10,6 +10,7 @@ import SignIn from './components/SignIn'
 import { Toaster } from 'react-hot-toast'
 import Profile from './components/Profile'
 import Header from './components/Header'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
 
@@ -21,11 +22,16 @@ function App() {
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/signin' element={<SignIn/>}/>
         <Route path='/' element={<Home/>}/>
-        <Route path='/shop' element={<Shop/>}/>
+        <Route path='/shop' element={<ProtectedRoute element={Shop} />} />
+        <Route path='/book/:id' element={<ProtectedRoute element={SelectedBook} />} />
+        <Route path='/cart' element={<ProtectedRoute element={Cart} />} />
+        <Route path='/checkout' element={<ProtectedRoute element={Checkout} />} />
+        <Route path='/profile' element={<ProtectedRoute element={Profile} />} />
+        {/* <Route path='/shop' element={<Shop/>}/>
         <Route path="/book/:id" element={<SelectedBook/>}/>
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/checkout' element={<Checkout/>}/>
-        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/profile' element={<Profile/>}/> */}
       </Routes>
     </Router>
   )

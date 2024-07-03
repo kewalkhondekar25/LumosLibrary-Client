@@ -10,7 +10,7 @@ const Profile = () => {
 
   const getPurchaseData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/v1/purchase", {
+      const response = await axios.get("https://lumos-library-server.vercel.app/api/v1/purchase", {
         headers: {
           Authorization: `${cookies["accessToken"]}`
         }
@@ -69,7 +69,7 @@ const Profile = () => {
                 const orderDate = date.toLocaleDateString(undefined, options);
 
                 return (
-                  <tr key={index} className={index % 2 === 0 ? 'bg-white text-black' : 'bg-gray-50'}>
+                  <tr key={index} className={index % 2 === 0 ? 'bg-white text-black' : 'bg-gray-50 text-black'}>
                     <td className="border border-gray-300 px-4 py-2">{orderDate}</td>
                     <td className="border border-gray-300 px-4 py-2">{item._id}</td>
                     <td className="border border-gray-300 px-4 py-2">{item.address}</td>
